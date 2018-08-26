@@ -1,5 +1,5 @@
 <template>
-    <div id="easy-autocomplete">
+    <div :id="'easy-autocomplete-'+_uid">
         <input type="text" v-bind:class="inputClass" v-model="i" @keyup="keyUp" @keyup.up="selector('up')" @keyup.down="selector('down')" @keyup.enter="showList = false" @click="showList = true"/>
         <ul class="list" v-show="showList">
            <li class="item" v-for="(item, index) in list" v-bind:key="index"  @click="select(index); showList = false" v-bind:class="selectedIndex === index ? 'selected' : false">
@@ -26,7 +26,7 @@
         },
         mounted: function () {
             document.addEventListener("click", (evt) => {
-                const flyoutElement = document.getElementById("easy-autocomplete");
+                const flyoutElement = document.getElementById('easy-autocomplete-'+this._uid);
                 let targetElement = evt.target;
 
                 do {
@@ -46,7 +46,7 @@
                 this.selectedIndex = index;
                 this.$emit('selected', this.selected);
                 setTimeout(()=>{
-                    document.getElementById('easy-autocomplete').getElementsByClassName('selected')[0].scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('easy-autocomplete-'+this._uid).getElementsByClassName('selected')[0].scrollIntoView({ behavior: 'smooth' });
                 },50);
 
             },
