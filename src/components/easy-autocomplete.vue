@@ -1,11 +1,13 @@
 <template>
     <div :id="'easy-autocomplete-'+_uid">
+        <div style="position: relative">
         <input type="text" v-bind:class="inputClass" v-model="i" @keyup="keyUp" @keyup.up="selector('up')" @keyup.down="selector('down')" @keyup.enter="showList = false" @click="showList = true"/>
         <ul class="list" v-show="showList">
            <li class="item" v-for="(item, index) in list" v-bind:key="index"  @click="select(index); showList = false" v-bind:class="selectedIndex === index ? 'selected' : false">
                <slot v-bind:item="item"></slot>
            </li>
         </ul>
+        </div>
     </div>
 </template>
 
@@ -86,6 +88,13 @@
         border-left: 1px solid #e8e8e8;
         max-height: 300px;
         overflow-y: scroll;
+        position: absolute;
+        width: 100%;
+        min-width: 300px;
+        top: 4px;
+        left: 0px;
+        background: #fff;
+        z-index: 1000;
     }
 
     ul::-webkit-scrollbar {
